@@ -1,0 +1,1 @@
+This is a a rock paper scissors code which is part of The Odin Project Exercise;
