@@ -1,6 +1,8 @@
     const narration = document.querySelector('#narration p');
-    const score = document.querySelector('#score');
-    score.textContent ="";
+    const playerScoreBox = document.querySelector('#scoreKyungsoo');
+    const computerScoreBox = document.querySelector('#scoreJinyoung');
+    const playerBox = document.querySelector('#playerScore .scoreBox');
+    const computerBox = document.querySelector('#computerScore .scoreBox');
     narration.textContent = "";
     let playerScore = 0;
     let computerScore = 0;
@@ -23,57 +25,21 @@
             }
     }
 
-    // function game(){
-    //     let playerSelection;
-    //     let computerSelection;
-    //     let results;
-    //     let playerScore = 0;
-    //     let computerScore = 0;
-       
-
-    //     for(i=1; i<6; i++){
-    //         playerSelection = prompt('What is your choice?');
-    //         computerSelection = computerPlay();
-    //         console.log(`Round ${i} -` + playRound(playerSelection, computerSelection));
-    //         result =playRound(playerSelection, computerSelection);
-    //         if(result.indexOf('win') > 0){
-    //             playerScore += 1;
-    //             console.log(`Round ${i} -` + `Player Score: ${playerScore} Computer Score: ${computerScore}`);
-    //         }
-    //         else if(result.indexOf('lose') > 0){
-    //             computerScore += 1;
-    //             console.log(`Round ${i} -` + `Player Score: ${playerScore} Computer Score: ${computerScore}`);
-    //         }
-    //         else if(result.indexOf('tie)'>0)){
-    //             console.log(`Round ${i} -` + `Player Score: ${playerScore} Computer Score: ${computerScore}`);
-    //         }
-    //         else{
-    //             console.log('INVALID ROUND')
-    //         }
-    //     }
-        
-    //         if(playerScore>computerScore){
-    //             console.log(`You won the game!`);
-    //         }
-    //         else if(computerScore>playerScore){
-    //             console.log(`You lost the game!`);
-    //         }
-    //         else{
-    //             console.log(`Tie!`);
-    //         }
-    // }
 
     function game2(e){
 
         if (playerScore === 5 || computerScore ===5){
             narration.setAttribute('style', 'font-size: 16px');
-            score.textContent="";
             narration.textContent="";
+            playerScoreBox.textContent="";
+            computerScoreBox.textContent="";
             let message = (playerScore>computerScore) ? 'You win. ' : (playerScore===computerScore) ? 'It\'s a tie! ' : 'You lose. ';
             alert(message + ' Game will restart');
             i =0;
             playerScore = 0;
             computerScore = 0;
+            playerBox.classList.remove('win');
+            computerBox.classList.remove('win');
             return;
         }
 
@@ -88,33 +54,37 @@
         computerFigGet.classList.add('selected');
 
         let result = playRound(playerSelection, computerSelection);
-        narration.textContent += result + "\r\n";
+        narration.textContent = `ROUND ${i} - ` + result + "\r\n" + narration.textContent;
         
         if(result.indexOf('win') > 0){
             playerScore += 1;
-            score.textContent+=`Round ${i} -` + `Player Score: ${playerScore} Computer Score: ${computerScore}` + "\r\n";
+            playerScoreBox.textContent = playerScore;
+            computerScoreBox.textContent = computerScore;
         }
         else if(result.indexOf('lose') > 0){
             computerScore += 1;
-            score.textContent+=`Round ${i} -` + `Player Score: ${playerScore} Computer Score: ${computerScore}` + "\r\n";
+            playerScoreBox.textContent = playerScore;
+            computerScoreBox.textContent = computerScore;
         }
         else if(result.indexOf('tie)'>0)){
-            score.textContent+=`Round ${i} -` + `Player Score: ${playerScore} Computer Score: ${computerScore}` + "\r\n";
+            
         }
 
         if(playerScore === 5 && playerScore>computerScore){
             narration.textContent ="";
-            narration.setAttribute('style', 'font-size: 100px');
-            narration.textContent +=`You won the game!`;
+            narration.setAttribute('style', 'font-size: 40px');
+            narration.textContent +=`You win!!`;
+            playerBox.classList.add('win');
         }
         else if(computerScore === 5 && computerScore>playerScore){
             narration.textContent ="";
-            narration.setAttribute('style', 'font-size: 100px');
-            narration.textContent +=`You lost the game!`;
+            narration.setAttribute('style', 'font-size: 40px');
+            narration.textContent +=`You lose!`;
+            computerBox.classList.add('win');
         }
         else if (playerScore === 5 && computerScore=== 5){
             narration.textContent ="";
-            narration.setAttribute('style', 'font-size: 100px');
+            narration.setAttribute('style', 'font-size: 40px');
             narration.textContent +=`Tie!`;
         }
         
@@ -132,5 +102,3 @@
 
     let computers = Array.from(document.querySelectorAll('.computerChoice'));
     computers.forEach(computer => computer.addEventListener('transitionend', removeTransition));
-
-    // game();
