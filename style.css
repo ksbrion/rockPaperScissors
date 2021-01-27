@@ -93,6 +93,7 @@ header > h1{
 #players{
     display: flex;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 #kyungsoo, #jinyoung{
